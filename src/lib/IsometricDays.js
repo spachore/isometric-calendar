@@ -17,6 +17,13 @@
 # ------------------------------------------- */
 
 /* ------------------------------------------
+# Return Array of isometric weekdays
+# ------------------------------------------- */
+export function getIsometricWeekdays() {
+    return ["Sun","Mon","Tue","Wed","Thu","Fri"];
+}
+
+/* ------------------------------------------
 # divisibility check
 # ------------------------------------------- */
 function isDivisible(a, b) {
@@ -24,14 +31,24 @@ function isDivisible(a, b) {
 }
 
 /* ------------------------------------------
-# get nubmer of days in a given isometric calendar year
+# leap year check for given isometric calendar year
 # ------------------------------------------- */
-
-export function daysInYear(year) {
-    let days = 0;
+export function isLeapYear(year) {
+    let isLeapYearFlag = false;
     if ((isDivisible(year, 4) && !isDivisible(year, 8))
         ||
         (isDivisible(year, 400) && !isDivisible(year, 800))) {
+            isLeapYearFlag = true;
+    }
+    return isLeapYearFlag;
+}
+
+/* ------------------------------------------
+# get nubmer of days in a given isometric calendar year
+# ------------------------------------------- */
+export function daysInYear(year) {
+    let days = 0;
+    if (isLeapYear(year)) {
         days = 360;
     }
     else {
@@ -82,7 +99,6 @@ function getYear(days) {
 # get 'month' from number of days, range 1-366
 # ------------------------------------------- */
 function getMonth(days) {
-    console.log(days)
     days = days + 29; 
     // adding 29 days does the trick of adding 1 to the month, and boundary case of 30th for day.
     // if days is 30, it returns 1-month and 30-days
@@ -103,4 +119,17 @@ export function getDateFromDays(days) {
 /* ------------------------------------------
 # 
 # ------------------------------------------- */
-
+export function addIsometricMonths(yearMonthStr, mdiff){
+    let [year, month, day] = yearMonthStr.split("-").map((str) => parseInt(str));
+    year = year + parseInt(mdiff/12);
+    month = month + (mdiff%12);
+    if(month > 12){
+      year = year + 1;
+      month = month - 12; //month 13 is to be considered along with month 12
+    }
+    else if(month <= 0){
+      year = year - 1;
+      month = month + 12;
+    }
+    return year.toString().padStart(4, "0") + "-" + month.toString().padStart(2, "0");
+}

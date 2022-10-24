@@ -1,5 +1,5 @@
 import React from 'react';
-import {Intro} from './components/Intro';
+import {CalendarShell} from './components/CalendarShell';
 import {
   ChakraProvider,
   Box,
@@ -20,7 +20,7 @@ function App() {
         <Grid minH="100vh" p={3}>
           <ColorModeSwitcher justifySelf="flex-end" />
           <VStack spacing={8}>
-            <Intro gregorianDate="2022-12-28"></Intro>
+            <CalendarShell></CalendarShell>
           </VStack>
         </Grid>
       </Box>
