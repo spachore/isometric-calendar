@@ -9,21 +9,34 @@ import {
   Grid,
   theme,
 } from '@chakra-ui/react';
-import { daysInYear } from '../lib/IsometricDays';
+import { daysInYear, getIsometricWeekday } from '../lib/IsometricDays';
 import { getIsometricDate } from "../lib/IsometricDates";
+import { getGregorianWeekday } from '../lib/gregorianDates';
+
+function displayDate(dateStr) {
+  
+}
 
 export function CalendarDay(props) {
-
   return (
-    <VStack spacing={8}>
-      <Text>
-        Isometric Calendar DAY - show 15 days before and after relationship horizontally.
+    <VStack w="full" spacing={4} >
+      <Text border="1px" borderColor={props.currDateInd && "purple.500"} 
+            bg={props.currDateInd && "purple.200"}
+            color={(getIsometricWeekday(props.isometricDate)==="Fri" || 
+                  getIsometricWeekday(props.isometricDate)==="Sun") && "gray.500"}
+      >
+        <Text bg="gray.200">{getIsometricWeekday(props.isometricDate)}</Text>
+        {props.isometricDate}
       </Text>
-      <Text>
-        Gregorian Date: "{props.gregorianDate.toISOString().slice(0,10)}"
-        <br/>
-        Isometric Date: "{getIsometricDate(props.gregorianDate.toISOString().slice(0,10))}"
+      <Text border="1px" borderColor={props.currDateInd && "pink.500"} 
+          bg={props.currDateInd && "pink.200"}
+          color={(getGregorianWeekday(props.gregorianDate)==="Sat" || 
+                  getGregorianWeekday(props.gregorianDate)==="Sun") && "gray.500"}
+      >
+        <Text bg="gray.200">{getGregorianWeekday(props.gregorianDate)}</Text>
+        {props.gregorianDate}
       </Text>
+      
     </VStack>
   );
 }

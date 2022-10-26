@@ -24,6 +24,13 @@ export function getIsometricWeekdays() {
 }
 
 /* ------------------------------------------
+# Return the isometric weekday for given date
+# ------------------------------------------- */
+export function getIsometricWeekday(dateStr) {
+    return getIsometricWeekdays()[(parseInt(dateStr.slice(8,10))-1)%6];
+}
+
+/* ------------------------------------------
 # divisibility check
 # ------------------------------------------- */
 function isDivisible(a, b) {
@@ -117,10 +124,13 @@ export function getDateFromDays(days) {
 }
 
 /* ------------------------------------------
-# 
+# add isometric month and return new month YYYY-MM
 # ------------------------------------------- */
 export function addIsometricMonths(yearMonthStr, mdiff){
     let [year, month, day] = yearMonthStr.split("-").map((str) => parseInt(str));
+    if(month === 13){
+        month = 12;
+    }
     year = year + parseInt(mdiff/12);
     month = month + (mdiff%12);
     if(month > 12){

@@ -16,12 +16,9 @@ import { CalendarMonth } from "./CalendarMonth";
 export function CalendarYear(props) {
 
   return (
-    <VStack spacing={8}>
+    <VStack spacing={8} justify='top'>
       <Text>
       Isometric Calendar YEAR - provide year-month-date selection.
-      </Text>
-      <Text>
-        Total Number of days in year <Code fontSize="xl">{props.gregorianDate.toISOString().slice(0,4)}</Code> : {daysInYear(props.gregorianDate.toISOString().slice(0,4))}
       </Text>
       <CalendarMonth gregorianDate={props.gregorianDate}></CalendarMonth>
     </VStack>
